@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Prueba Gapsi</string>
+    <string name="search">Search A Product</string>
+    <string name="search_hint">Try writing some trademark</string>
+    <string name="addCart">Buy</string>
+    <string name="cart_text1">Total Cost:</string>
+    <string name="cart_text2">Articles:</string>
+    <string name="cart_text3">Buy Detail:</string>
+    <string name="cart_text4">Complete Purchase</string>
+    <string name="cart_text5">Remove</string>
 </resources>

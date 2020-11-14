@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/productDetailImage"
+        android:layout_width="@dimen/base_150sp"
+        android:layout_height="@dimen/base_150sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/productDetailName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/productDetailImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/base_15sp"
+        tools:text="Sony CFD-S70BLK Stereo CD/Cassette Boombox"
+        android:textSize="@dimen/base_15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginEnd="@dimen/base_8sp"
+        android:layout_marginStart="@dimen/base_8sp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/productDetailPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/productDetailImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/productDetailName"
+        android:layout_marginTop="@dimen/base_15sp"
+        tools:text="$1,198.00"
+        android:textAlignment="center"
+        android:textSize="@dimen/base_30sp"
+        android:textColor="@color/purple_700"
+        android:layout_marginEnd="@dimen/base_8sp"
+        android:layout_marginStart="@dimen/base_8sp"
+        />
+
+    <Button
+        android:id="@+id/remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cart_text5"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/productDetailPrice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

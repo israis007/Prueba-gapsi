@@ -3,6 +3,7 @@
     package="com.israis007.pruebagapsi">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".GapsiApp"
@@ -12,10 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PruebaGapsi">
-        <activity android:name=".ui.ShopActivity"
-            android:screenOrientation="fullSensor"
+        <activity android:name="com.israis007.pruebagapsi.ui.market.ShopActivity"
+            android:theme="@style/AppThemeNoTitleBar"
             />
-        <activity android:name=".ui.ui.main.splashscreen.SplashActivity"
+        <activity android:name=".ui.splashscreen.SplashActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/AppThemeNoTitleBarAndTransparent"
@@ -26,6 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="com.israis007.pruebagapsi.utils.SuggestionProvider"
+            android:name=".utils.SuggestionProvider"
+            android:exported="false" />
+
     </application>
 
 </manifest>

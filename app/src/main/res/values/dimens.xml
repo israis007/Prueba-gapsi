@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="base_50sp">50sp</dimen>
+    <dimen name="base_40sp">40sp</dimen>
+    <dimen name="base_30sp">30sp</dimen>
+    <dimen name="base_10sp">10sp</dimen>
+    <dimen name="icon_shop_size">@dimen/base_40sp</dimen>
+    <dimen name="base_8sp">8sp</dimen>
+    <dimen name="base_15sp">15sp</dimen>
+    <dimen name="base_250sp">250sp</dimen>
+    <dimen name="base_150sp">150sp</dimen>
+    <dimen name="start_size">45</dimen>
+</resources>

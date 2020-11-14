@@ -1,4 +1,4 @@
-package com.israis007.pruebagapsi.ui.ui.main.splashscreen
+package com.israis007.pruebagapsi.ui.splashscreen
 
 import android.animation.Animator
 
