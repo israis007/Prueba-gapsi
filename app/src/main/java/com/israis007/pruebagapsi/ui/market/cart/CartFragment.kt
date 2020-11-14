@@ -1,5 +1,6 @@
 package com.israis007.pruebagapsi.ui.market.cart
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.israis007.pruebagapsi.R
 import com.israis007.pruebagapsi.rest.models.Items
+import com.israis007.pruebagapsi.ui.market.ShopViewModel
 import kotlinx.android.synthetic.main.cart_fragment.view.*
 
 class CartFragment : Fragment() {
@@ -35,12 +37,29 @@ class CartFragment : Fragment() {
                 adapter.removeItem(items)
                 cartView.totalAmount.text = adapter.getAmount()
                 cartView.articlesAmount.text = adapter.itemCount.toString()
+                CartFragmentViewModel.countItems.postValue(adapter.itemCount)
+                val list = ShopViewModel.itemsToBuy.value ?: arrayListOf()
+                if (list.isNotEmpty()) {
+                    list.remove(items)
+                }
+                ShopViewModel.itemsToBuy.postValue(list)
             }
         })
 
         cartView.recyclerDetail.layoutManager = LinearLayoutManager(activity!!).apply { orientation = RecyclerView.VERTICAL }
         cartView.recyclerDetail.adapter = adapter
         cartView.recyclerDetail.isNestedScrollingEnabled = true
+
+        cartView.completePurchase.setOnClickListener {
+            val dialog = AlertDialog.Builder(activity!!)
+            dialog.setMessage(R.string.cart_text6)
+            dialog.setPositiveButton(R.string.cart_text7) { dialog1, _ ->
+                ShopViewModel.itemsToBuy.postValue(arrayListOf())
+                adapter.clean()
+                dialog1.dismiss()
+            }
+            dialog.create().show()
+        }
 
         return cartView
     }
@@ -52,7 +71,7 @@ class CartFragment : Fragment() {
 
         CartFragmentViewModel.newBuyItem.observe(this, Observer {
             val item = it ?: return@Observer
-            adapter.addItem(item)
+            adapter.addItem(ShopViewModel.itemsToBuy.value ?: arrayListOf())
             cartView.totalAmount.text = adapter.getAmount()
             cartView.articlesAmount.text = adapter.itemCount.toString()
             CartFragmentViewModel.countItems.postValue(adapter.itemCount)

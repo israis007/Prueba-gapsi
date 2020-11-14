@@ -10,13 +10,4 @@ class CartFragmentViewModel: ViewModel() {
         val newBuyItem = MutableLiveData<Items>()
         val countItems = MutableLiveData<Int>()
     }
-
-    private val _list = ArrayList<Items>()
-
-    fun addBuyItem(items: Items){
-        _list.add(items)
-    }
-
-
-
 }

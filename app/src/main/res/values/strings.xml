@@ -8,4 +8,6 @@
     <string name="cart_text3">Buy Detail:</string>
     <string name="cart_text4">Complete Purchase</string>
     <string name="cart_text5">Remove</string>
+    <string name="cart_text6">Thanks for your purchase</string>
+    <string name="cart_text7">Accept</string>
 </resources>

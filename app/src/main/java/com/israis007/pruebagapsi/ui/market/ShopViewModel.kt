@@ -46,6 +46,7 @@ class ShopViewModel: ViewModel() {
 
     companion object {
         val buyItem = MutableLiveData<Items>()
+        val itemsToBuy = MutableLiveData<ArrayList<Items>>()
     }
 
 }

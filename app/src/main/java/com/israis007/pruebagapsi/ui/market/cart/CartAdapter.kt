@@ -66,9 +66,16 @@ class CartAdapter (
         return ("$${format.format(d)}")
     }
 
-    fun addItem(items: Items){
-        this.list.add(items)
+    fun addItem(items: List<Items>){
+        this.list.addAll(items)
         this@CartAdapter.notifyItemInserted(itemCount)
+    }
+
+    fun clean(){
+        for (i in 0 until list.size){
+            this.list.removeAt(0)
+            this@CartAdapter.notifyItemRemoved(i)
+        }
     }
 
 }

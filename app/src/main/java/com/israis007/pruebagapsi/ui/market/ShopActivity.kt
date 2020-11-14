@@ -1,19 +1,18 @@
 package com.israis007.pruebagapsi.ui.market
 
-import android.app.SearchManager
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.israis007.pruebagapsi.R
+import com.israis007.pruebagapsi.rest.models.Items
 import com.israis007.pruebagapsi.ui.market.cart.CartFragment
 import com.israis007.pruebagapsi.ui.market.cart.CartFragmentViewModel
 import com.israis007.pruebagapsi.ui.market.search.ShopFragment
 import com.israis007.pruebagapsi.ui.market.search.ShopFragmentViewModel
-import kotlinx.android.synthetic.main.appbarlayout.*
+import com.israis007.pruebagapsi.utils.HideKeyBoard
 import kotlinx.android.synthetic.main.appbarlayout.view.*
 import kotlinx.android.synthetic.main.shop_activity.*
 
@@ -23,6 +22,8 @@ class ShopActivity : AppCompatActivity() {
     private lateinit var shopFragment: ShopFragment
     private lateinit var cartFragment: CartFragment
     private var showCart = false
+    private var counterLocal = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,7 @@ class ShopActivity : AppCompatActivity() {
         shop_appbarlayout.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.searchAndSaveQuery(shop_appbarlayout.searchView.query.toString(), this@ShopActivity)
+                HideKeyBoard.hide(this@ShopActivity)
                 return true
             }
 
@@ -53,21 +55,24 @@ class ShopActivity : AppCompatActivity() {
 
         ShopViewModel.buyItem.observe(this, Observer {
             val item = it ?: return@Observer
+            val arrayList = ArrayList<Items>()
+            val list = ShopViewModel.itemsToBuy.value ?: arrayListOf()
+            if (list.isEmpty())
+                arrayList.add(item)
+            else {
+                arrayList.addAll(list)
+                arrayList.add(item)
+            }
+            ShopViewModel.itemsToBuy.postValue(arrayList)
             CartFragmentViewModel.newBuyItem.postValue(item)
+            counterLocal++
+            modifyCounter(counterLocal)
         })
 
         CartFragmentViewModel.countItems.observe(this, Observer {
             val count = it ?: return@Observer
-            if (count > 0) {
-                shop_appbarlayout.counter.apply {
-                    visibility = View.VISIBLE
-                    text = count.toString()
-                }
-            } else
-                shop_appbarlayout.counter.apply {
-                    visibility = View.GONE
-                    text = ""
-                }
+            counterLocal = count
+            modifyCounter(count)
         })
 
         shop_appbarlayout.shopIcon.setOnClickListener {
@@ -79,6 +84,19 @@ class ShopActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             changeFragment(FragmentType.SEARCH)
         }
+    }
+
+    private fun modifyCounter(count: Int){
+        if (count > 0) {
+            shop_appbarlayout.counter.apply {
+                visibility = View.VISIBLE
+                text = count.toString()
+            }
+        } else
+            shop_appbarlayout.counter.apply {
+                visibility = View.GONE
+                text = ""
+            }
     }
 
     private fun changeFragment(fragmentType: FragmentType){
